@@ -1,0 +1,33 @@
+{% extends 'core/base.html' %}
+{%block main%}
+ 
+    {% if messages %}
+    {% for message in messages %}
+        <p class="alert alert-primary text-center"> {{message}}</p>
+    {% endfor %}
+    {% endif %}
+
+    {% if form.non_field_errors %}
+        {% for error in form.non_field_errors%}
+            <div class="alert alert-danger text-center">{{error}}</div>
+        {% endfor %}
+    {% endif%}
+
+
+    <div class="ms-5 me-5">
+        <form action="" method="POST" novalidate>
+            {% csrf_token %}
+
+            {% for fm in form%}
+                <div class="mt-2 form-group">
+                {{fm.label_tag}} {{fm}} 
+                {% if fm.errors %}
+                {{fm.errors}}
+                {% endif %}
+                </div>
+            {% endfor %}
+            <br>
+            <input type="submit" class="btn btn-danger" value="Submit">
+        </form>
+    </div>
+{% endblock main %}
